@@ -43,12 +43,14 @@ module.exports = {
   },
   deleteOnePhotoUser: async (req, res, next) => {
     try {
-      const fileToRemove = req.user.album[req.body.numb];
+      const fileToRemove = req.user.album[req.params.ids];
+
       await deletePhoto(req);
 
       const pathDirCom = await photoBilder(pthoto, fileToRemove, req.user._id);
 
       await promisify1(pathDirCom);
+
       res.json(OK.message);
     } catch (e) {
       next(e);

@@ -3,9 +3,9 @@ const { userModule } = require('../basaDate');
 
 module.exports = {
   deletePhoto: async (req) => {
-    const { user: { _id }, body: { numb } } = req;
+    const { user: { _id }, body: { ids } } = req;
     const user = await userModule.findById(_id);
-    user.album.splice(numb, 1);
+    user.album.splice(ids, 1);
 
     await userModule.updateOne({ _id }, { $set: { album: user.album } });
 

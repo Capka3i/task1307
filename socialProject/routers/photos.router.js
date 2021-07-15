@@ -16,7 +16,7 @@ const {
 
 router.put('/:user_id', idValide, checkedPhoto, statusUser, addPhoto);
 
-router.delete('/:user_id', idValide, statusUser, deleteOnePhotoUser);
+router.delete('/:user_id/:ids', idValide, statusUser, deleteOnePhotoUser);
 
 router.get('/:user_id/photos', idValide, statusUser, getAllPhotosUser);
 
