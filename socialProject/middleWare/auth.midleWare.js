@@ -24,10 +24,9 @@ module.exports = {
   },
   checkToken: async (req, res, next) => {
     try {
-
       const token = req.get(PERSONAL_AUTHORIZATION);
-    console.log(token);
-      await verifyToken(token);
+
+      await verifyToken(token.toString());
 
       const findOne = await OAuthModule.findOne({ accessToken: token });
 

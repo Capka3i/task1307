@@ -27,7 +27,7 @@ module.exports = {
 
   verifyToken: async (token, tokenType = ACCESS) => {
     const someSercret = tokenType === ACCESS ? ACCESS_TOKEN_KEY : REFRESH_TOKEN_KEY;
-    console.log(someSercret);
+
     await verifyPromise(token, someSercret);
   },
 

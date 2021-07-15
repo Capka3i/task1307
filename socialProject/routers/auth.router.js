@@ -4,7 +4,6 @@ const { authConntroller: { login, logout, refresh } } = require('../controllers'
 const {
   authMidleware: {
     getUserByDynamicParam,
-    checkToken,
     checkRefToken
   },
   userMidleware: {
@@ -14,7 +13,7 @@ const {
 
 router.post('/login', getUserByDynamicParam('email'), statusUser, login);
 
-router.post('/logout', checkToken, logout);
+router.post('/logout', logout);
 
 router.post('/refresh', checkRefToken, refresh);
 
