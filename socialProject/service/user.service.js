@@ -16,7 +16,6 @@ const {
         USER_NOT_FOUND,
         YOU_CANNOT_CHANGE_PROFILE,
         WRONG_NEW_PASSWORD,
-        WRONG_PASSWORD
       },
   ConstElements:
       {
@@ -41,9 +40,9 @@ module.exports = {
         avatar
       }
     } = someProfile;
-
-    avatar.name = photosRenamer(avatar);
-
+    if (avatar) {
+      avatar.name = photosRenamer(avatar);
+    }
     const activationUuid = await tokenForEmail(email);
 
     const hashPassword = await hash(password);
@@ -53,8 +52,8 @@ module.exports = {
       password: hashPassword,
       status: EMAIL_NOT_ACTIVE,
       emailConfirmation: activationUuid.mailToken,
-      avatar: avatar.name[0],
-      allAvatar: avatar.name,
+      avatar: avatar.name,
+      album: avatar.name,
     });
 
     if (avatar) {

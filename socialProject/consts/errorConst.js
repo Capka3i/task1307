@@ -61,11 +61,6 @@ module.exports = {
     message: 'passwords do not match',
     code: 404
   },
-  WRONG_PASSWORD: {
-    status: 404.6,
-    message: 'wrong password',
-    code: 404
-  },
   YOU_CANNOT_CHANGE_PROFILE: {
     status: 404,
     message: 'You cannot change the email',
