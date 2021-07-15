@@ -29,12 +29,15 @@ module.exports = {
         nickName,
         email
       } = req.user;
+
       await activationProfile(req.query);
+
       await sentMail(email, REGISTRATION, {
         firstName,
         lastName,
         nickName,
       });
+
       res.status(OK.status, OK.message);
     } catch (e) {
       next(e);
@@ -43,19 +46,21 @@ module.exports = {
   removeUser: async (req, res, next) => {
     try {
       const {
-
         firstName,
         lastName,
         nickName,
         email
       } = req.user;
+
       await removeProfile(req.params);
+
       await sentMail(email, REMOVE, {
         firstName,
         lastName,
         nickName,
       });
-    res.status(OK.status).json(OK.message);
+
+      res.status(OK.status).json(OK.message);
     } catch (e) {
       next(e);
     }
@@ -64,7 +69,7 @@ module.exports = {
     try {
       const newVar = await changeProfile(req);
 
-    res.status(OK.status).json(userNormalizator(newVar));
+      res.status(OK.status).json(userNormalizator(newVar));
     } catch (e) {
       next(e);
     }

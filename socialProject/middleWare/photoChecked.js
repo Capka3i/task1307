@@ -1,15 +1,11 @@
 const {
-    ErrorConst:
-
+  ErrorConst:
 {
   REQUEST_ENTITY_TOO_LARGE
 },
-
-    ConstElements: {
+  ConstElements: {
     PHOTO_MAX_SIZE,
-
     PHOTOS_MIMETYPES,
-
   }
 } = require('../consts');
 const { ErrorHeader } = require('../Error');
@@ -29,7 +25,7 @@ module.exports = {
 
           if (PHOTOS_MIMETYPES.includes(mimetype)) {
             if (size > PHOTO_MAX_SIZE) {
-              throw new ErrorHeader(REQUEST_ENTITY_TOO_LARGE(PHOTO_MAX_SIZE));
+              throw new ErrorHeader(REQUEST_ENTITY_TOO_LARGE);
             }
             photos.push(name);
           }

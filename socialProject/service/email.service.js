@@ -26,13 +26,17 @@ const transporter = nodemailer.createTransport({
 });
 const sentMail = async (emailUser, action, context = {}) => {
   const tamplateToSent = tamplace[action];
+
   const {
     firstName, lastName
   } = context;
+
   let someUrl;
+
   if (action === ACTIVATION_EMAIL) {
     someUrl = urlHelperEmail(context);
   }
+
   if (!tamplateToSent) throw new ErrorHeader(WRONG_TEMPLATE);
 
   const renderTemplate = await templaceParset.render(tamplateToSent.templateName, {

@@ -29,7 +29,6 @@ module.exports = {
       await OAuthModule.remove({ accessToken: token });
 
       res.status(GOOD_BYE.status).json(GOOD_BYE.message);
-    console.log()
     } catch (e) {
       next(e);
     }

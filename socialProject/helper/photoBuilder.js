@@ -9,11 +9,9 @@ const { ConstElements: { user, staticDir } } = require('../consts');
 
 module.exports = {
   photoBilder: async (typeDir, nameFile, objectId) => {
-
     const pathDir = path.join(user, objectId.toString(), typeDir);
 
     const pathDirFull = path.join(process.cwd(), staticDir, pathDir);
-
 
     const pathDirCom = path.join(pathDirFull, nameFile);
 

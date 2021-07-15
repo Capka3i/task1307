@@ -13,8 +13,8 @@ const { tokenService: { verifyToken } } = require('../service');
 module.exports = {
   checkMailPassword: (req, res, next) => {
     try {
-    console.log('-----------------');
       const { error } = userModule.validate(req.body);
+
       if (error) {
         throw new Error(error.details[0].message);
       }
@@ -38,7 +38,6 @@ module.exports = {
   checkToken: async (req, res, next) => {
     try {
       const token = req.get(PERSONAL_AUTHORIZATION);
-    console.log(req,222222222,token);
       await verifyToken(token);
 
       const findOne = await OAuthModule.findOne({ accessToken: token });
@@ -61,7 +60,7 @@ module.exports = {
         [PERSONAL_AUTHORIZATION]: perTok,
         [SECRET_AUTHORIZATION]: refTok
       });
-    console.log(findOne);
+
       if (!findOne) {
         throw new ErrorHeader(TOKEN_NOT_FOUND);
       }

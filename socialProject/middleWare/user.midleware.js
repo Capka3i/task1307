@@ -46,9 +46,11 @@ module.exports = {
     try {
       const user = req.query.some || req.params.user_id;
       const baseDateElement = await userModule.findById(user);
-    if (!baseDateElement) {
+
+      if (!baseDateElement) {
         throw new ErrorHeader(USER_NOT_FOUND);
       }
+
       req.user = baseDateElement;
       next();
     } catch (e) {
@@ -71,11 +73,12 @@ module.exports = {
   statusUser: (req, res, next) => {
     try {
       const { status } = req.user;
-      console.log(status);
+
       if (status !== ACTION) {
         if (status === DELETE) {
           throw new ErrorHeader(USER_REMOVE);
         }
+
         throw new ErrorHeader(EMAIL_NOT_ACTIVE);
       }
 

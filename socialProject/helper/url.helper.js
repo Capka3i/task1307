@@ -23,6 +23,6 @@ module.exports = {
       }
       myURL.searchParams.append(URL_HAF[i], Element[i]);
     }
-      return myURL;
+    return myURL;
   }
 };
