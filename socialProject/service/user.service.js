@@ -104,9 +104,7 @@ module.exports = {
       someProfile.body.password = await hash(password);
     }
 
-    const newVar = await userModule.findOneAndUpdate({ _id }, someProfile.body);
-
-    return newVar;
+    await userModule.updateOne({ _id }, someProfile.body);
   },
   changePasswordCrea: async (someProfile) => {
     const { user: { password, _id }, body: { oldPassword, newPassword, reNewPassword } } = someProfile;

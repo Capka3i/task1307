@@ -45,7 +45,7 @@ module.exports = {
         nickName,
       });
 
-      res.status(OK.status, OK.message);
+      res.status(OK.status, OK.message).json(OK.status);
     } catch (e) {
       next(e);
     }
@@ -74,9 +74,9 @@ module.exports = {
   },
   changeProfile: async (req, res, next) => {
     try {
-      const newVar = await changeProfile(req);
+      await changeProfile(req);
 
-      res.status(OK.status).json(userNormalizator(newVar));
+      res.status(OK.status).json(OK.message);
     } catch (e) {
       next(e);
     }
