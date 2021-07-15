@@ -5,7 +5,7 @@ const {
 } = require('../consts');
 
 module.exports = {
-  urlHelperEmail: (someVal) => {
+  urlHelperEmail: (someVal,url) => {
     const someChange = someVal.emailConfirmation.split('.');
     const {
       id
@@ -14,7 +14,7 @@ module.exports = {
       ...someChange,
       id
     ];
-    const myURL = new URL(URL_LOCAL_HOST);
+    const myURL = new URL(url);
     for (let i = 0; i < Element.length; i++) {
       if (!i) {
         myURL.searchParams.set(URL_HAF[i], Element[i]);

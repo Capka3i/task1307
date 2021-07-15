@@ -1,4 +1,8 @@
-const { ConstElements: { ACTIVATION_EMAIL, REGISTRATION, REMOVE }, EmailTableEnum } = require('../consts');
+const {
+  ConstElements: {
+    ACTIVATION_EMAIL, REGISTRATION, REMOVE, PASSWORD,PASSWORDCHANGE
+  }, EmailTableEnum
+} = require('../consts');
 
 module.exports = {
 
@@ -13,5 +17,13 @@ module.exports = {
   [EmailTableEnum.REGISTRATION]: {
     templateName: REGISTRATION.templateName,
     subject: REGISTRATION.subject
+  },
+  [EmailTableEnum.PASSWORD]: {
+    templateName: PASSWORD.templateName,
+    subject: PASSWORD.subject
+  },
+  [EmailTableEnum.PASSWORDCHANGE]: {
+    templateName: PASSWORDCHANGE.templateName,
+    subject: PASSWORDCHANGE.subject
   }
 };

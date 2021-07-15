@@ -16,7 +16,7 @@ const {
       }
 } = require('../consts');
 const { ErrorHeader } = require('../Error');
-const { profileValidator, profileChangeValidator } = require('../validator');
+const { profileValidator, profileChangeValidator, passwordValidator } = require('../validator');
 const { userModule } = require('../basaDate');
 
 module.exports = {
@@ -52,6 +52,7 @@ module.exports = {
       }
 
       req.user = baseDateElement;
+
       next();
     } catch (e) {
       next(e);
@@ -80,6 +81,19 @@ module.exports = {
         }
 
         throw new ErrorHeader(EMAIL_NOT_ACTIVE);
+      }
+
+      next();
+    } catch (e) {
+      next(e);
+    }
+  },
+  changePasswordVal: (req, res, next) => {
+    try {
+      const { error } = passwordValidator.validate(req.body);
+
+      if (!error) {
+        throw new Error(error.details[0].message);
       }
 
       next();

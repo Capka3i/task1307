@@ -1,5 +1,7 @@
 module.exports = {
   ACTIVATION_EMAIL: 1,
   REMOVE: 2,
-  REGISTRATION: 3
+  REGISTRATION: 3,
+  PASSWORD: 4,
+  PASSWORDCHANGE: 5
 };

@@ -3,11 +3,18 @@ const {
     createProfile,
     activationProfile,
     removeProfile,
-    changeProfile
+    changeProfile,
+      changePasswordCrea,
+      activationNewPass
   }, emailService: { sentMail }
 } = require('../service');
 const { userHelper: { userNormalizator } } = require('../helper');
-const { EmailTableEnum: { ACTIVATION_EMAIL, REGISTRATION, REMOVE }, ErrorConst: { OK } } = require('../consts');
+const {
+  ConstElements: { SEND_MAIL },
+  EmailTableEnum: {
+    ACTIVATION_EMAIL, REGISTRATION, REMOVE, PASSWORD,PASSWORDCHANGE
+  }, ErrorConst: { OK }
+} = require('../consts');
 
 module.exports = {
   regisration: async (req, res, next) => {
@@ -70,6 +77,30 @@ module.exports = {
       const newVar = await changeProfile(req);
 
       res.status(OK.status).json(userNormalizator(newVar));
+    } catch (e) {
+      next(e);
+    }
+  },
+  changePasswordSendler: async (req, res, next) => {
+    try {
+      const { email } = req.user;
+      const newVar = await changePasswordCrea(req);
+      await sentMail(email, PASSWORD, newVar);
+
+      res.status(OK.status).json(SEND_MAIL);
+    } catch (e) {
+      next(e);
+    }
+  },
+  changePassword: async (req, res, next) => {
+    try {
+      const {
+        email
+      } = req.user;
+      const newVar = await activationNewPass(req);
+      await sentMail(email, PASSWORDCHANGE, newVar);
+
+      res.status(OK.status, OK.message);
     } catch (e) {
       next(e);
     }

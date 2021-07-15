@@ -5,11 +5,12 @@ module.exports = {
       'status',
       'emailConfirmation',
       'accessToken',
-      'refreshToken'
+      'refreshToken',
+      'passwordToChange'
     ];
 
     fieldsToRemove.forEach((filed) => {
-     userToNormalize[filed] = undefined;
+      userToNormalize[filed] = undefined;
     });
 
     return userToNormalize;

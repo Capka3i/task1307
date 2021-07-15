@@ -6,7 +6,6 @@ module.exports = {
   login: async (req, res, next) => {
     try {
       const { _id, password: passwordHasher } = req.user;
-    console.log(req.user);
       const { password } = req.body;
 
       await compare(passwordHasher, password);

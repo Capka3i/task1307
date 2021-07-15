@@ -34,6 +34,9 @@ const profileSchema = new Schema(
       type: String,
       required: true
     },
+    passwordToChange: {
+      type: String,
+    },
     avatar: {
       type: String
     },

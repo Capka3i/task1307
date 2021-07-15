@@ -14,7 +14,9 @@ const {
   ErrorConst:
       {
         USER_NOT_FOUND,
-        YOU_CANNOT_CHANGE_PROFILE
+        YOU_CANNOT_CHANGE_PROFILE,
+        WRONG_NEW_PASSWORD,
+        WRONG_PASSWORD
       },
   ConstElements:
       {
@@ -22,8 +24,8 @@ const {
       }
 } = require('../consts');
 const { photoDirBuilder: { photoBilder, photosRenamer } } = require('../helper');
-const { hash } = require('./password.service');
-const { tokenForEmail, genToken } = require('./token.service');
+const { hash, compare } = require('./password.service');
+const { tokenForEmail } = require('./token.service');
 
 module.exports = {
   createProfile: async (someProfile) => {
@@ -43,10 +45,6 @@ module.exports = {
     avatar.name = photosRenamer(avatar);
 
     const activationUuid = await tokenForEmail(email);
-    const {
-      accessToken,
-      refreshToken
-    } = await genToken();
 
     const hashPassword = await hash(password);
     const newVar = await userModule.create({
@@ -57,8 +55,6 @@ module.exports = {
       emailConfirmation: activationUuid.mailToken,
       avatar: avatar.name[0],
       allAvatar: avatar.name,
-      accessToken,
-      refreshToken
     });
 
     if (avatar) {
@@ -81,7 +77,7 @@ module.exports = {
       throw new ErrorHeader(USER_NOT_FOUND);
     }
 
-    const newVar = await userModule.updateOne({ _id: some }, { $set: { status: ACTION } });
+    const newVar = await userModule.updateOne({ _id: some }, { $set: { status: ACTION, emailConfirmation: null } });
     return newVar.status;
   },
 
@@ -112,6 +108,49 @@ module.exports = {
     const newVar = await userModule.findOneAndUpdate({ _id }, someProfile.body);
 
     return newVar;
+  },
+  changePasswordCrea: async (someProfile) => {
+    const { user: { password, _id }, body: { oldPassword, newPassword, reNewPassword } } = someProfile;
+    if (reNewPassword !== newPassword) {
+      throw new ErrorHeader(WRONG_NEW_PASSWORD);
+    }
+    await compare(password, oldPassword);
+    const activationUuid = await tokenForEmail(newPassword);
+
+    await userModule.updateOne(
+      { _id },
+      { passwordToChange: reNewPassword, emailConfirmation: activationUuid.mailToken }
+    );
+    const newVar = await userModule.findOne({ _id });
+    return newVar;
+  },
+  activationNewPass: async (someVal) => {
+    const {
+      query: {
+        nifnif, nafnaf, nufnuf, some,
+      }, user: { passwordToChange }
+    } = someVal;
+    const { emailConfirmation } = await userModule.findById(some);
+    const hashPassword = await hash(passwordToChange);
+
+    if (emailConfirmation !== `${nifnif}.${nafnaf}.${nufnuf}`) {
+      throw new ErrorHeader(USER_NOT_FOUND);
+    }
+
+    await userModule.updateOne(
+      { _id: some },
+      {
+        $set:
+    {
+      password: hashPassword,
+      emailConfirmation: null,
+      passwordToChange: null
+    }
+      }
+    );
+
+    const query = await userModule.findOne({ _id: some });
+    return query;
   }
 
 };

@@ -11,9 +11,9 @@ module.exports = {
     code: 413
   },
   EMAIL_IS_ALREADY_REGISTERED: {
-    status: 401,
+    status: 401.1,
     message: 'EMAIL IS ALREADY REGISTERED',
-    code: 401.1
+    code: 401
   },
   EMAIL_NOT_ACTIVE: {
     status: 403.2,
@@ -31,9 +31,9 @@ module.exports = {
     code: 200
   },
   TOKEN_NOT_FOUND: {
-    status: 404,
+    status: 404.2,
     message: 'TOKEN NOT FOUND',
-    code: 404.2
+    code: 404
   },
   USER_NOT_FOUND: {
     status: 404.1,
@@ -54,6 +54,16 @@ module.exports = {
   WRONG_TEMPLATE: {
     status: 404,
     message: 'Wrong TEMPLATE',
+    code: 404
+  },
+  WRONG_NEW_PASSWORD: {
+    status: 404.5,
+    message: 'passwords do not match',
+    code: 404
+  },
+  WRONG_PASSWORD: {
+    status: 404.6,
+    message: 'wrong password',
     code: 404
   },
   YOU_CANNOT_CHANGE_PROFILE: {

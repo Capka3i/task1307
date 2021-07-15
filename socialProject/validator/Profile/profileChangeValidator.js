@@ -24,11 +24,6 @@ module.exports = Joi.object({
       .string()
       .allow(...Object.values(GENDER)),
 
-    password: Joi
-      .string()
-      .max(8)
-      .max(64),
-
     avatar: Joi
       .string()
 

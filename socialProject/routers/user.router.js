@@ -5,7 +5,9 @@ const {
     regisration,
     activationProfile,
     removeUser,
-    changeProfile
+    changeProfile,
+    changePasswordSendler,
+    changePassword
   }
 } = require('../controllers');
 const {
@@ -13,7 +15,8 @@ const {
     idValide,
     validRegistration,
     checkUserValidity,
-    statusUser
+    statusUser,
+    changePasswordVal
   }
 } = require('../middleWare');
 
@@ -24,5 +27,9 @@ router.put('/activation', idValide, activationProfile);
 router.delete('/remove/:user_id', idValide, statusUser, removeUser);
 
 router.put('/changer/:user_id', idValide, statusUser, checkUserValidity, changeProfile);
+
+router.post('/changerpass/:user_id', idValide, statusUser, changePasswordVal, changePasswordSendler);
+
+router.put('/changerpass', idValide, changePassword);
 
 module.exports = router;

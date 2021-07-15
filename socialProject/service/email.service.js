@@ -4,9 +4,10 @@ const path = require('path');
 
 const {
   ErrorConst: { WRONG_TEMPLATE }, ConstElements: {
-    MAIL_TO_SENT, PASS_TO_SENT
-  }, EmailTableEnum: { ACTIVATION_EMAIL }
+    MAIL_TO_SENT, PASS_TO_SENT, URL_LOCAL_HOST, URL_LOCAL_HOST_PASS
+  }, EmailTableEnum: { ACTIVATION_EMAIL, PASSWORD }
 } = require('../consts');
+
 const { ErrorHeader } = require('../Error');
 const tamplace = require('../emailTamplace');
 const { urlHelper: { urlHelperEmail } } = require('../helper');
@@ -34,7 +35,9 @@ const sentMail = async (emailUser, action, context = {}) => {
   let someUrl;
 
   if (action === ACTIVATION_EMAIL) {
-    someUrl = urlHelperEmail(context);
+    someUrl = await urlHelperEmail(context, URL_LOCAL_HOST);
+  } else if (action === PASSWORD) {
+    someUrl = await urlHelperEmail(context, URL_LOCAL_HOST_PASS);
   }
 
   if (!tamplateToSent) throw new ErrorHeader(WRONG_TEMPLATE);
