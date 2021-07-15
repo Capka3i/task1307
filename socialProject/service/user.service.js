@@ -111,6 +111,7 @@ module.exports = {
     if (reNewPassword !== newPassword) {
       throw new ErrorHeader(WRONG_NEW_PASSWORD);
     }
+
     await compare(password, oldPassword);
     const activationUuid = await tokenForEmail(newPassword);
 
@@ -118,6 +119,7 @@ module.exports = {
       { _id },
       { passwordToChange: reNewPassword, emailConfirmation: activationUuid.mailToken }
     );
+
     const newVar = await userModule.findOne({ _id });
     return newVar;
   },

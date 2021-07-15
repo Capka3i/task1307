@@ -11,19 +11,6 @@ const { OAuthModule, userModule } = require('../basaDate');
 const { tokenService: { verifyToken } } = require('../service');
 
 module.exports = {
-  checkMailPassword: (req, res, next) => {
-    try {
-      const { error } = userModule.validate(req.body);
-
-      if (error) {
-        throw new Error(error.details[0].message);
-      }
-
-      next();
-    } catch (e) {
-      next(e);
-    }
-  },
   getUserByDynamicParam: (param, path = 'body', someKey = param) => async (req, res, next) => {
     try {
       const value = req[path][param];
@@ -37,7 +24,9 @@ module.exports = {
   },
   checkToken: async (req, res, next) => {
     try {
+
       const token = req.get(PERSONAL_AUTHORIZATION);
+    console.log(token);
       await verifyToken(token);
 
       const findOne = await OAuthModule.findOne({ accessToken: token });
@@ -46,6 +35,7 @@ module.exports = {
         throw new ErrorHeader(TOKEN_NOT_FOUND);
       }
       req.userToken = findOne;
+
       next();
     } catch (e) {
       next(e);

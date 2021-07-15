@@ -3,7 +3,6 @@ const router = require('express').Router();
 const { authConntroller: { login, logout, refresh } } = require('../controllers');
 const {
   authMidleware: {
-    checkMailPassword,
     getUserByDynamicParam,
     checkToken,
     checkRefToken
@@ -13,7 +12,7 @@ const {
   }
 } = require('../middleWare');
 
-router.post('/login', checkMailPassword, getUserByDynamicParam('email'), statusUser, login);
+router.post('/login', getUserByDynamicParam('email'), statusUser, login);
 
 router.post('/logout', checkToken, logout);
 

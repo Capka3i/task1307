@@ -49,12 +49,6 @@ const profileSchema = new Schema(
     },
     emailConfirmation: {
       type: String
-    },
-    accessToken: {
-      type: String
-    },
-    refreshToken: {
-      type: String
     }
   },
   {
