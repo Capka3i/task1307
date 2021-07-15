@@ -57,7 +57,7 @@ module.exports = {
     });
 
     if (avatar) {
-      const pathDirCom = await photoBilder(pthoto, avatar.name[0], newVar._id);
+      const pathDirCom = await photoBilder(pthoto, avatar.name, newVar._id);
       await avatar.mv(pathDirCom);
     }
     return newVar;
